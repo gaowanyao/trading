@@ -23,10 +23,10 @@
 <div style="height:360px; width:100%; position:relative; overflow:hidden; min-width:1200px;">
 
 <div >
-	<div class="flexslider" >
+	<div class="flexslider"  id="banner_can">
 		<ul class="slides" >
 			<volist name='flash' id='vo'>
-            	<li><a href="http://{$vo.jump_url|default='#'}" target="_blank"><img style="height: 360px;" src="{$vo.pic}" alt="{$vo.title}" style="height:320px;"></a></li>
+            	<li><a href="http://{$vo.jump_url|default='#'}" target="_blank"><img style="height: 340px;" src="{$vo.pic}" alt="{$vo.title}" style="height:320px;"></a></li>
             </volist>
 		</ul>
 	</div>
@@ -528,6 +528,10 @@
 <!--footer start-->
 <include file="App/Home/View/Public/footer.html"/>
 <!--footer end-->
+
+
+<script src="__PUBLIC__/js/canvas_line.js"></script>
+
 <script>
 $(function() { 
     $(".flexslider").flexslider({

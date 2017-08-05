@@ -190,13 +190,52 @@ class LoginController extends CommonController{
                 $this->ajaxReturn($data);
             }else{
                 $data['status']=2;
-                $data['info']="服务器繁忙,请稍后重试";
+                $data['info']="服务器繁忙,请稍后重试2";
                 $this->ajaxReturn($data);
             }
         }else{
             $this->display();
         }
     }
+
+
+
+    public function haha(){
+
+        $_POST['email'] = "1528667112@qq.com";
+        $token = strtoupper(md5($_POST['email']).md5(time()));//大写md5当前邮箱+当前时间
+        $url = "http://".$_SERVER['SERVER_NAME'].U('Login/resetPwd',array('key'=>$token));
+        $content = "<div>";
+        $content.= "您好，<br><br>请点击链接：<br>";
+        $content.= "<a target='_blank' href='{$url}' >重置您的密码</a>";
+        $content.= "<br><br>如果链接无法点击，请复制并打开以下网址：<br>";
+        $content.= "<a target='_blank' href='{$url}' >{$url}</a>";
+        $r = setPostEmail($this->config['EMAIL_HOST'],$this->config['EMAIL_USERNAME'],$this->config['EMAIL_PASSWORD'],$this->config['name'].'团队',$_POST['email'],$this->config['name'].'团队[密码找回]',$content);
+
+        dump($r);
+        dump($content);
+        dump($this->config['EMAIL_HOST']);
+        dump($this->config['EMAIL_USERNAME']);
+        dump($this->config['EMAIL_PASSWORD']);
+        dump($this->config['name']);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 根据发送邮箱地址显示修改密码界面
      */
@@ -270,13 +309,13 @@ class LoginController extends CommonController{
      */
     public function showVerify(){
         $config =	array(
-            'fontSize'  =>  10,              // 验证码字体大小(px)
+            'fontSize'  =>  12,              // 验证码字体大小(px)
             'useCurve'  =>  true,            // 是否画混淆曲线
-            'useNoise'  =>  true,            // 是否添加杂点
+            'useNoise'  =>  false,            // 是否添加杂点
             'imageH'    =>  35,               // 验证码图片高度
-            'imageW'    =>  80,               // 验证码图片宽度
+            'imageW'    =>  90,               // 验证码图片宽度
             'length'    =>  4,               // 验证码位数
-            'fontttf'   =>  '4.ttf',              // 验证码字体，不设置随机获取
+            'fontttf'   =>  '5.ttf',              // 验证码字体，不设置随机获取
         );
         $Verify =     new Verify($config);
         $Verify->entry();

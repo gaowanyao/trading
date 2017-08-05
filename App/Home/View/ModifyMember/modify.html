@@ -136,6 +136,9 @@
         }else{
             $.post("{:U('ModifyMember/ajaxSandPhone')}",{phone:encodeURIComponent($("#mo").val())},
                     function(d){
+
+                console.log(d);
+
                        layer.msg(d.info);				   
                         if(d.status==1){	
                             i=120;

@@ -11,6 +11,11 @@ chart_30m = {symbol:"{$currency.currency_mark}_{$currency_trade.currency_mark}",
 chart_8h = {symbol:"{$currency.currency_mark}_{$currency_trade.currency_mark}",symbol_view:"DDD/CNY",ask:1.2,time_line:{$kline_8h}};*/
 $(function() {
 	$.get("/Home/Orders/getOrdersKline",{"currency":$("#currency_id").val(),"time":"kline_1h"},function(orders){
+
+        console.log($("#currency_id").val());
+        console.log($("#currency_id").val());
+        console.log(orders);
+
         kline($("#currency_mark").html()+"2"+$("#currency_trade_mark").html(),orders.kline_1h);
 
 	});

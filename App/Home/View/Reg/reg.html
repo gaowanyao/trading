@@ -73,14 +73,22 @@ color: #2471cb;
     text-decoration: underline;
 }
 </style>
-<div class="main" id="reg-prev">
-	<div class="main_box">
+<div class="main" id="reg-prev" style="padding-left: 0px;">
+    <div class="" style=" width: 1000px;  min-height: 400px;
+	padding:30px;
+	padding-top:0;
+	border: 1px solid #e1e1df;
+	background-color: #fbfaf8;
+	margin: 0 auto;
+	">
+        <!--<div class="main_box" >-->
 		<div class="warning">
 			<h2>风险警示</h2>
 			{$config.reg_risk_warning}
 		</div>
 		<div class="ybc_user2 clearfix">
-			<div class="ybc_text left"><input name="agree" id="tongyi" type="checkbox" onclick="xuanzhong()"></div>
+            <!--<div class="ybc_text left"><input name="agree" id="tongyi" type="checkbox" onclick="xuanzhong()"></div>-->
+            <div class="ybc_text left"><input name="agree" id="tongyi" type="checkbox" ></div>
 			<div class="ybc_hint left"><label for="tongyi">我已经认真阅读以上风险提示，并已同意{$config.name} <a href="{:U('Reg/terms')}" id="agreement" class="tycolor">服务条款</a>，同意在自担风险，自担损失的情况下参与交易
 </label></div>
 			<div class="ybc_hint left"><span id="agree"></span></div>

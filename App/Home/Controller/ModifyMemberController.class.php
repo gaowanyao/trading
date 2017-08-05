@@ -122,26 +122,117 @@ class ModifyMemberController extends CommonController {
             $data['info'] = "手机号码已经存在";
             $this->ajaxReturn($data);
         }
-        $r = sandPhone($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
-		if(!$r[1]){
-			$data['status']=1;
-        	$data['info']="发送成功";
-        	$this->ajaxReturn($data);exit;
-		}else{
-			$data['status'] =-3;
-        	$data['info']=chuanglan_status($r[1]);
-        	$this->ajaxReturn($data);exit;
-		}
+        $r = sandPhone1($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
+//        $r = sandPhone($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
+
+
+//        if(!$r[1]){
+//			$data['status']=1;
+//        	$data['info']="发送成功";
+//        	$this->ajaxReturn($data);exit;
+//		}else{
+//			$data['status'] =-3;
+//        	$data['info'] = chuanglan_status($r[1]);
+//        	$this->ajaxReturn($data);exit;
+//		}
  
         
-//         if($r!="短信发送成功"){
-//             $data['status']=0;
-//             $data['info'] = $r;
-//             $this->ajaxReturn($data);
-//         }else{
-//             $data['status']=1;
-//             $data['info'] = $r;
-//             $this->ajaxReturn($data);
-//         }
+         if($r!="短信发送成功"){
+             $data['status']=0;
+             $data['info'] = $r;
+             $this->ajaxReturn($data);
+         }else{
+             $data['status']=1;
+             $data['info'] = $r;
+             $this->ajaxReturn($data);
+         }
     }
+
+
+
+
+    //ceshi
+    public function kk(){
+
+
+
+
+
+        $_SESSION['num'] = 0;
+        dump($_SESSION);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        $r = sandPhone($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
+
+
+//        dump($r);
+//        dump($_SESSION);
+
+//
+//        $statusStr = array(
+//            "0" => "短信发送成功",
+//            "-1" => "参数不全",
+//            "-2" => "服务器空间不支持,请确认支持curl或者fsocket，联系您的空间商解决或者更换空间！",
+//            "30" => "密码错误",
+//            "40" => "账号不存在",
+//            "41" => "余额不足",
+//            "42" => "帐户已过期",
+//            "43" => "IP地址限制",
+//            "50" => "内容含有敏感词",
+//            "51" => "手机号码格式不正确"
+//        );
+//
+//        $code = rand(100000,999999);
+//
+//        session(array('name'=>'code','expire'=>600));
+//        session('code',$code);  //设置session
+//        session('num',session('num')+1);  //设置session
+//        session('time',time());
+//        dump($code);
+//
+//
+//
+//        $smsapi = "http://api.smsbao.com/";
+//        $user = "gcan"; //短信平台帐号
+//        $pass = md5($this->config['CODE_USER_PASS']); //短信平台密码
+//        $content="[Tcash] 您好，您的验证码是".$code;//要发送的短信内容
+//        $phone = "1780109891";//要发送短信的手机号码
+//        $sendurl = $smsapi."sms?u=".$user."&p=".$pass."&m=".$phone."&c=".urlencode($content);
+//        $result =file_get_contents($sendurl) ;
+//
+//        dump($result);
+//        echo $statusStr[$result];
+//
+//        dump($_SESSION);
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 }

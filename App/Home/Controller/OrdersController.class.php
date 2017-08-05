@@ -113,38 +113,38 @@ class OrdersController extends CommonController{
     private function getKline($base_time,$currency_id){
             $time=time()-$base_time*60*60;
             for ($i=0;$i<60;$i++){
-             $start= $time+$base_time*60*$i;
-             $end=$start+$base_time*60;
-            //时间
-            $item[$i][]=$start*1000+8*3600*1000;
-            $where['currency_id']=$currency_id;
-            $where['type']='buy';
-            $where['add_time']=array('between',array($start,$end));
-     
-            //交易量
-          $num=M('Trade')->where($where)->sum('num');
-          $item[$i][]=!empty($num)?floatval($num):0;
-            //开盘
-            $where_price['currency_id']=$currency_id;
-            $where_price['type']='buy';
-            $where_price['add_time']=array('elt',$end);
-          
-            $order_k=M('Trade')->field('price')->where($where_price)->order('add_time desc')->find();
-            $item[$i][]=!empty($order_k['price'])?floatval($order_k['price']):0;
-            //最高
-           $max=M('Trade')->where($where)->max('price');
-           $max=!empty($max)?floatval($max):$order_k['price'];
-           $max=!empty($max)?$max:0;
-           $item[$i][]=$max;
-            //最低
-            $min=M('Trade')->where($where)->min('price');
-            $min=!empty($min)?floatval($min):$order_k['price'];
-            $item[$i][]=!empty($min)?$min:0;
-            //收盘
-            $order_s=M('Trade')->field('price')->where($where)->order('add_time asc')->find();
-            $order_s=!empty($order_s['price'])?floatval($order_s['price']):$order_k['price'];
-            $item[$i][]=!empty($order_s)?$order_s:0;
-        }
+                 $start= $time+$base_time*60*$i;
+                 $end=$start+$base_time*60;
+                //时间
+                $item[$i][]=$start*1000+8*3600*1000;
+                $where['currency_id']=$currency_id;
+                $where['type']='buy';
+                $where['add_time']=array('between',array($start,$end));
+
+                //交易量
+              $num=M('Trade')->where($where)->sum('num');
+              $item[$i][]=!empty($num)?floatval($num):0;
+                //开盘
+                $where_price['currency_id']=$currency_id;
+                $where_price['type']='buy';
+                $where_price['add_time']=array('elt',$end);
+
+                $order_k=M('Trade')->field('price')->where($where_price)->order('add_time desc')->find();
+                $item[$i][]=!empty($order_k['price'])?floatval($order_k['price']):0;
+                //最高
+               $max=M('Trade')->where($where)->max('price');
+               $max=!empty($max)?floatval($max):$order_k['price'];
+               $max=!empty($max)?$max:0;
+               $item[$i][]=$max;
+                //最低
+                $min=M('Trade')->where($where)->min('price');
+                $min=!empty($min)?floatval($min):$order_k['price'];
+                $item[$i][]=!empty($min)?$min:0;
+                //收盘
+                $order_s=M('Trade')->field('price')->where($where)->order('add_time asc')->find();
+                $order_s=!empty($order_s['price'])?floatval($order_s['price']):$order_k['price'];
+                $item[$i][]=!empty($order_s)?$order_s:0;
+            }
        // $item=json_encode($item,true);
         return $item;
     }
