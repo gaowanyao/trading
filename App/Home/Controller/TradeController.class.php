@@ -114,7 +114,7 @@ class TradeController extends TradeFatherController {
        if (in_array(false, $r)){
            M()->rollback();
            $msg['status']=-7;
-           $msg['info']='操作未成功';
+           $msg['info']='操作未成功'.json_encode($r);
            $this->ajaxReturn($msg);
        }else {
            M()->commit();

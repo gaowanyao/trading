@@ -40,7 +40,7 @@ class FillByBankController extends HomeController {
 		}
 		// 写入订单
 		$orderno = date ( 'YmdHis' ) . mt_rand ( 100000, 999999 );
-		;
+		
 		$data ['num'] = number_format ( $_POST ["p3_Amt"] );
 		$data ['random'] = rand ( 0001, 9999 );
 		$data ['uid'] = $_SESSION ['USER_KEY_ID'];

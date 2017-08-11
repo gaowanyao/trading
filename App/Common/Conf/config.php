@@ -8,7 +8,8 @@ return array (
 		
 		'DEFAULT_LANG' => 'zh-cn', // zh-cn文件夹名字 /lang/zh-cn/common.php
 		'TMPL_PARSE_STRING' => array (
-				'__ADMINCSS__' => '/Public/admin/css',
+            '__UPLOADSIMAGES__' => '/Uploads/Public/images',
+            '__ADMINCSS__' => '/Public/admin/css',
 				'__ADMINJS__' => '/Public/admin/js',
 				'__ADMINIMG__' => '/Public/admin/images',
 				'__HOMECSS__' => '/Public/home/css',
@@ -55,7 +56,7 @@ return array (
 
 
 
-//   		'TMPL_EXCEPTION_FILE' =>'./404.html' 
+//   		'TMPL_EXCEPTION_FILE' =>'./404.html'
 
 
 );

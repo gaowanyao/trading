@@ -75,29 +75,29 @@
                     <li><label for="job" class="youxiang">职位/头衔：</label>
                         <input type="text" name="job" id="job" class="" value="{$list['job']}">
                     </li>
-                    <li style="margin-bottom:20px;">
+                    <li style="display: none;margin-bottom:20px;">
 
-                        <label for="upload">上传头像：</label>
-                        <input type="file" size="45" id="file_upload1" name="file_upload1" class="fileField left" style="text-align:center;" multiple/>
+                        <label for="file_upload1">上传头像：</label>
+                        <input type="file"  id="file_upload" name="file_upload" class="fileField left" style="text-align:center;" />
+                        <!--<a class="button left upload" href="javascript:$('#file_upload1').uploadifyUpload();">上传</a>-->
+                        <!--<button class="button left upload" onclick="$('#file_upload1').uploadify('upload');" >上传</button>-->
                         <!--<button class="button left upload" onclick="return ulogoUpload();">上传</button>-->
                         <span class="note left" style="height:40px; line-height:20px;">尺寸需大于120*120像素；支持.jpg .png .gif格式；<br>小于1MB的图片</span>
                         <div id="fileQueue1"></div>
                         <div class="clear"></div>
                     </li>
                     <!--                <li style="margin-bottom:10px;"><label>&nbsp;</label><img src="--><!--" id="logo" style="width:72px; height:72px;"/></li>-->
-                    <li style="margin-bottom:10px;"><label>&nbsp;</label>
+                    <li style="display: none;margin-bottom:10px;"><label>&nbsp;</label>
                         <img name="head"
                         <if condition="$list['head']">src="{$list['head']}"
                             <else/>src="__PUBLIC__/Home/images/ulogodefault.jpg"
                         </if>
                         id="logo" style="width:72px; height:72px;"></li>
-
                     <input type="hidden" name="head" id="head_hidden"
                     <if condition="$list['head']">value="{$list['head']}"
                         <else/>value="__PUBLIC__/Home/images/ulogodefault.jpg"
                     </if>
-                    >
-
+                    />
                     <li style="margin-bottom:10px;"><label for="jianjie">个人简介：</label>
                         <textarea id="jianjie" rows="5" cols="60" name="profile">{$list['profile']}</textarea>
                         <span class="note" style=" margin-left:110px;">3000字以内</span>
@@ -115,7 +115,7 @@
 <script type="text/javascript">
     $(function () {
 
-        $("#file_upload1").uploadify({
+        $("#file_upload").uploadify({
             //指定swf文件
             'swf': '/Public/js/uploadify/uploadify.swf',
             //后台处理的页面
@@ -140,6 +140,9 @@
             'multi': false,
             'onUploadSuccess':function(file,data,response){
                 var r=jQuery.parseJSON(data);
+
+                console.log(data);
+
                 $("#pic1").val(r['info']);
                 //$("#uploadedpic").empty();
                 $("#logo").attr("src",r['info']);

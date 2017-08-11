@@ -94,16 +94,20 @@ class OrdersController extends CommonController{
             return;
         }
         $currency_id=I('get.currency');
+
+
         //K线
-        $char=!empty($_GET['time'])?I('get.time'):'kline_1h';
+        $char=!empty($_GET['time'])?I('get.time'):'kline_5m';
         switch ($char){
+            case 'kline_1m':$time=1;break;
+            case 'kline_3m':$time=3;break;
             case 'kline_5m':$time=5;break;
             case 'kline_15m':$time=15;break;
             case 'kline_30m':$time=30;break;
             case 'kline_1h':$time=60;break;
             case 'kline_8h':$time=480;break;
             case 'kline_1d':$time=24*60;break;
-            default:$time=60;
+            default:$time=5;
         }
         $data[$char]=$this->getKline($time,$currency_id);
 
@@ -112,9 +116,18 @@ class OrdersController extends CommonController{
     //获取K线
     private function getKline($base_time,$currency_id){
             $time=time()-$base_time*60*60;
+
+//            dump($time);
+
             for ($i=0;$i<60;$i++){
                  $start= $time+$base_time*60*$i;
                  $end=$start+$base_time*60;
+
+//                dump($start);
+//                dump($end);
+
+
+
                 //时间
                 $item[$i][]=$start*1000+8*3600*1000;
                 $where['currency_id']=$currency_id;
@@ -123,6 +136,10 @@ class OrdersController extends CommonController{
 
                 //交易量
               $num=M('Trade')->where($where)->sum('num');
+
+//                dump($where);
+//                dump($num);
+
               $item[$i][]=!empty($num)?floatval($num):0;
                 //开盘
                 $where_price['currency_id']=$currency_id;

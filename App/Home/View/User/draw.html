@@ -209,7 +209,10 @@ function zfb(){
 					 rangelength:"请输入有效卡号"}
         },
 	    submitHandler:function(form){
-            ajax_submit_form(form)
+            var ss = ajax_submit_form(form);
+
+            console.log(form);
+            console.log(ss);
             return false;
         },
         invalidHandler: function() {  //不通过回调
@@ -254,12 +257,15 @@ function zfb(){
             <h2 class="choose_one">输入要提款的金额<span>(可用余额：<strong>￥{$rmb.rmb}</strong>)</span><span style="float:right;margin-right:20px;"><strong id="rmbout_showtips"></strong></span></h2>
            
            <form action="{:U('User/withdraw')}" method="post" id="drawform" jump-url="{:U('User/draw')}">
+
+               <input id="myphone" value="{$phone}" type="hidden">
+
            <table class="my_add" border="0" cellpadding="0" cellspacing="0">
               <tbody>
                 <tr>
                   <td style="position:relative; padding-left:90px;">提款金额
                   	<input name="select_bank" id="select_bank" type="hidden">
-                    <input style="display:none">
+                    <input value="" style="display:none">
                     <!-- for disable autocomplete on chrome -->
                     <input class="sum" name="money" id="money"  autocomplete="off" type="text" onkeyup="value=value.replace(/[^\d]/g,'');sjdz();">
                     </td>
@@ -453,11 +459,16 @@ function chexiao(id){
 function sandPhone(){
         var i=120;
        
-		var phone = $("mo").val();
+		var phone = $("#myphone").val();
+
+		console.log(phone);
+
         if(phone && /^1[3|4|5|8]\d{9}$/.test(phone)){
             layer.msg("请填写正确的手机号码");
         }else{
-            $.post("{:U('ModifyMember/ajaxSandPhone')}",{phone:encodeURIComponent($("#mo").val())},
+//            获取验证码
+            $.post("{:U('ModifyMember/ajaxSandPhone2')}",{phone:encodeURIComponent($("#myphone").val())},
+//                $.post("{:U('ModifyMember/ajaxSandPhone')}",{phone:encodeURIComponent($("#myphone").val())},
                     function(d){
                        layer.msg(d.info);
                         if(d.status==1){

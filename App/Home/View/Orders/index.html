@@ -10,13 +10,17 @@ chart_1h = {symbol:"{$currency.currency_mark}_{$currency_trade.currency_mark}",s
 chart_30m = {symbol:"{$currency.currency_mark}_{$currency_trade.currency_mark}",symbol_view:"DDD/CNY",ask:1.2,time_line:{$kline_30m}};
 chart_8h = {symbol:"{$currency.currency_mark}_{$currency_trade.currency_mark}",symbol_view:"DDD/CNY",ask:1.2,time_line:{$kline_8h}};*/
 $(function() {
-	$.get("/Home/Orders/getOrdersKline",{"currency":$("#currency_id").val(),"time":"kline_1h"},function(orders){
 
-        console.log($("#currency_id").val());
+
+	$.get("/Home/Orders/getOrdersKline",{"currency":$("#currency_id").val(),"time":"kline_5m"},function(orders){
+
         console.log($("#currency_id").val());
         console.log(orders);
 
-        kline($("#currency_mark").html()+"2"+$("#currency_trade_mark").html(),orders.kline_1h);
+        //默认时间前后都要调整
+
+        kline($("#currency_mark").html()+"2"+$("#currency_trade_mark").html(),orders.kline_5m);
+
 
 	});
 	
@@ -24,7 +28,11 @@ $(function() {
 		$(this).addClass("btn-success").siblings().removeClass("btn-success");
 			 var time = $(this).attr('data-time');
 			 $.get("/Home/Orders/getOrdersKline",{"currency":$("#currency_id").val(),"time":time},function(orders){
-			 kline($("#currency_mark").html()+"2"+$("#currency_trade_mark").html(),orders[time]);
+                 console.log(orders);
+
+                 kline($("#currency_mark").html()+"2"+$("#currency_trade_mark").html(),orders[time]);
+
+
 		});
 	});
 });
@@ -59,11 +67,12 @@ $(function() {
       <div id="graphbox" style="width:96%;height:455px;margin:0px auto;">
         <div id="container" style="height: 410px; min-width: 460px"></div>
         <div id="chart-control" data="ybc" class="btn-group centered" style="width: 98%;height: 30px;line-height: 30px; marign:0 auto;text-align:center">
-          <!--<button data-time="kline_3m" class="btn">3分钟线</button>-->
-          <button data-time="kline_5m" class="btn">5分钟线</button>
+          <button data-time="kline_1m" class="btn">1分钟线</button>
+          <button data-time="kline_3m" class="btn">3分钟线</button>
+          <button data-time="kline_5m" class="btn btn-success">5分钟线</button>
           <button data-time="kline_15m" class="btn">15分钟线</button>
           <button data-time="kline_30m" class="btn">30分钟线</button>
-          <button data-time="kline_1h" class="btn btn-success">1小时线</button>
+          <button data-time="kline_1h" class="btn ">1小时线</button>
           <button data-time="kline_8h" class="btn">8小时线</button>
           <button data-time="kline_1d" class="btn ">日线</button>
         </div>
@@ -306,7 +315,7 @@ function sell(){
 		  btn: ['确定','取消'] //按钮
 		}, function(index){
 			layer.close(index);
-			$("body").append("<div id='loading' style='z-index:19891014; background-color:#000; opacity:0.3; filter:alpha(opacity=30);top: 0;left: 0;width: 100%;height: 100%;position: fixed;_position: absolute;text-align:center;'><img src='/public/home/images/loading.gif' style='margin-top:25%;' /></div>");
+			$("body").append("<div id='loading' style='z-index:19891014; background-color:#000; opacity:0.3; filter:alpha(opacity=30);top: 0;left: 0;width: 100%;height: 100%;position: fixed;_position: absolute;text-align:center;'><img src='__UPLOADSIMAGES__/loading.gif' style='margin-top:25%;' /></div>");
 			$.ajax({
 				type:"post",
 				url:"{:U('Trade/sell')}",
@@ -351,7 +360,7 @@ function buy(){
 	  btn: ['确定','取消'] //按钮
 	}, function(index){
 		layer.close(index);
-		$("body").append("<div id='loading' style='z-index:19891014; background-color:#000; opacity:0.3; filter:alpha(opacity=30);top: 0;left: 0;width: 100%;height: 100%;position: fixed;_position: absolute;text-align:center;'><img src='/public/home/images/loading.gif' style='margin-top:25%;' /></div>");
+		$("body").append("<div id='loading' style='z-index:19891014; background-color:#000; opacity:0.3; filter:alpha(opacity=30);top: 0;left: 0;width: 100%;height: 100%;position: fixed;_position: absolute;text-align:center;'><img src='__UPLOADSIMAGES__/loading.gif' style='margin-top:25%;' /></div>");
 		$.ajax({
 			type:"post",
 			url:"{:U('Trade/buy')}",

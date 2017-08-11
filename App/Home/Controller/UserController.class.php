@@ -46,6 +46,9 @@ class UserController extends HomeController {
         $list['area_name_city'] = M("Areas")->where(array('area_id'=>$list['city']))->find()['area_name'];
         $list['area_name_province'] = M("Areas")->where(array('area_id'=>$list['province']))->find()['area_name'];
         if(IS_POST){
+
+
+
             $member_id = I('post.member_id','','intval');
             $data['nick'] = I('post.nick');
             $data['province'] = I('post.province','','intval');
@@ -87,6 +90,8 @@ class UserController extends HomeController {
             $areas = M("Areas")->where('area_type = 1')->select();
             $this->assign('areas',$areas);
             $this->assign('list',$list);
+
+
             $this->display('update_massage');
         }
     }
@@ -96,15 +101,17 @@ class UserController extends HomeController {
     public function updatePassword(){
          header("Content-type: text/html; charset=utf-8");
         if(IS_POST){
+
+
             $oldPwd = I('post.oldpwd','','md5');
             $newPwd = I('post.pwd','','md5');
             $rePwd = I('post.repwd','','md5');
             $M_member = D('Member');
-            if(!$M_member->checkPwd($_POST['oldpwd']) || !$M_member->checkPwd($_POST['pwd']) || !$M_member->checkPwd($_POST['repwd']) ){
-                $data['status']=2;
-                $data['info']='请输入6-20位密码';
-                $this->ajaxReturn($data);
-            }
+//            if(!$M_member->checkPwd($_POST['oldpwd']) || !$M_member->checkPwd($_POST['pwd']) || !$M_member->checkPwd($_POST['repwd']) ){
+//                $data['status']=2;
+//                $data['info']='请输入6-20位密码';
+//                $this->ajaxReturn($data);
+//            }  //一直提示这个信息，暂时去掉
             if($rePwd!=$newPwd){
                 $data['status']=2;
                 $data['info']='两次输入的密码不一致';
@@ -118,7 +125,7 @@ class UserController extends HomeController {
             }
             if($newPwd===$oldPwd){
                 $data['status']=2;
-                $data['info']='新密码不能和密码一样';
+                $data['info']='新密码不能和原始密码一样';
                 $this->ajaxReturn($data);
             }
             $data['pwd'] = $newPwd;
@@ -446,6 +453,8 @@ class UserController extends HomeController {
     }
 
 
+
+
 	/**
 	 *  提现显示信息及添加信息
 	 */
@@ -455,7 +464,7 @@ class UserController extends HomeController {
         $article = M('article');
         $area = M('Areas');
         $withdraw =M('Withdraw');
-        
+
         $where['uid'] = session('USER_KEY_ID');
         //提示文章显示
         $art['content'] = html_entity_decode($article->where(C('DB_PREFIX').'article.position_id = 120')->find()['content']);
@@ -482,8 +491,12 @@ class UserController extends HomeController {
             ->select();
         //显示可用余额
         $rmb = $member->field('rmb')->where("member_id ={$_SESSION['USER_KEY_ID']}")->find();
-        
+        $phone = $member->field('phone')->where("member_id ={$_SESSION['USER_KEY_ID']}")->find();
+
+
+
         $this->assign('rmb',$rmb);
+        $this->assign('phone',$phone['phone']);
         $this->assign('draw_info',$draw_info);
         $this->assign('bank_info',$bank_info);
         $this->assign('auth', $this->auth['name']);//传递真实姓名
@@ -518,6 +531,8 @@ class UserController extends HomeController {
             $this->ajaxReturn($arr);
         }
     }
+
+
 
     /**
      * 提现金额
@@ -755,6 +770,8 @@ class UserController extends HomeController {
      * ajax上传图片方法
      */
     function addPicForAjax(){
+
+
         //头像上传
         $upload = new Upload();// 实例化上传类
         $upload->maxSize   =     3145728 ;// 设置附件上传大小

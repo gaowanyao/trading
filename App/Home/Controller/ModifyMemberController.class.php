@@ -113,7 +113,7 @@ class ModifyMemberController extends CommonController {
         }
         if(!preg_match("/^1[34578]{1}\d{9}$/",$phone)){  
             $data['status']=-1;
-            $data['info'] = "手机号码不正确";
+            $data['info'] = "手机号码不正确".$phone;
             $this->ajaxReturn($data);
         }  
         $user_phone=M("Member")->field('phone')->where("phone='$phone'")->find();
@@ -149,6 +149,52 @@ class ModifyMemberController extends CommonController {
     }
 
 
+    /**
+     * ajax获取手机验证码
+     */
+    public function ajaxSandPhone2(){
+        $phone = urldecode(I('phone'));
+        if(empty($phone)){
+            $data['status']=0;
+            $data['info'] = "手机号码不能为空";
+            $this->ajaxReturn($data);
+        }
+        if(!preg_match("/^1[34578]{1}\d{9}$/",$phone)){
+            $data['status']=-1;
+            $data['info'] = "手机号码不正确".$phone;
+            $this->ajaxReturn($data);
+        }
+        $user_phone=M("Member")->field('phone')->where("phone='$phone'")->find();
+        if (empty($user_phone)){
+            $data['status']=-2;
+            $data['info'] = "手机号码不存在";
+            $this->ajaxReturn($data);
+        }
+        $r = sandPhone1($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
+//        $r = sandPhone($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
+
+
+//        if(!$r[1]){
+//			$data['status']=1;
+//        	$data['info']="发送成功";
+//        	$this->ajaxReturn($data);exit;
+//		}else{
+//			$data['status'] =-3;
+//        	$data['info'] = chuanglan_status($r[1]);
+//        	$this->ajaxReturn($data);exit;
+//		}
+
+
+        if($r!="短信发送成功"){
+            $data['status']=0;
+            $data['info'] = $r;
+            $this->ajaxReturn($data);
+        }else{
+            $data['status']=1;
+            $data['info'] = $r;
+            $this->ajaxReturn($data);
+        }
+    }
 
 
     //ceshi
