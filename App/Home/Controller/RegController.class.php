@@ -29,17 +29,25 @@ class RegController extends CommonController {
      */
     public function addReg(){
         if(IS_POST){
+//            if(1){
             //增加添加时间,IP
             $_POST['reg_time'] = time();
             $_POST['ip'] = get_client_ip();
             $M_member = D('Member');
+//
+//                $_POST['pwd'] = $_POST['repwd'] = "000000";
+//                $_POST['email'] = "1528667115@qq.com";
+//                $_POST['pwdtrade'] = $_POST['repwdtrade'] = "111111";
+
+
             if($_POST['pwd']==$_POST['pwdtrade']){
             	$data['status'] = 0;
             	$data['info'] = "交易密码不能和密码一样";
             	$this->ajaxReturn($data);
             	
             	//                $this->error($M_member->getError());
-            	return;
+
+                return;
             }
             if (!$M_member->create()){
                 // 如果创建失败 表示验证没有通过 输出错误提示信息
@@ -47,6 +55,8 @@ class RegController extends CommonController {
                 $data['info'] = $M_member->getError();
                 $this->ajaxReturn($data);
 //                $this->error($M_member->getError());
+
+
                 return;
             }else{
                 $r = $M_member->add();
@@ -67,6 +77,9 @@ class RegController extends CommonController {
 //                    return;
                 }
             }
+
+
+
         }else{
             $this->display('Reg/reg');
         }

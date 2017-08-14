@@ -625,7 +625,11 @@ function exportexcel($data = array(), $title = array(), $filename = 'report') {
  * @return unknown 
  */
 function inject_check($sql_str) {
-	$check= eregi('select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile', $sql_str);
+
+
+//    preg_match
+//	$check= eregi('select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile', $sql_str);
+	$check= preg_match('select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile', $sql_str);
 	if($check){
 		return true;
 	}else{
