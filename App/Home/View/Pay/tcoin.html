@@ -234,7 +234,7 @@ $('#coin_rmb').bind('input propertychange', function() {
                 }
             }
         },1000);
-        
+
             $.post("{:U('Common/ajaxSandPhone')}",{'phone':phone},
                     function(d){
                        layer.msg(d.info);

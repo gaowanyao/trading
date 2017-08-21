@@ -149,10 +149,15 @@ class CurrencyController extends AdminController {
 	}
 	public function index(){
 		$list=$this->currency->select();
-		foreach ($list as $k=>$v){
-			$list[$k]['qianbao_balance']=$this->get_qianbao_balance($v);
-		}
-		$this->assign('list',$list);
+
+
+//		foreach ($list as $k=>$v){
+//			$list[$k]['qianbao_balance']=$this->get_qianbao_balance($v);
+//		}
+
+
+
+        $this->assign('list',$list);
 		$this->assign('empty','暂无数据');
 		$this->display();
     }

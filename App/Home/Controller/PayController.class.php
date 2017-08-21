@@ -18,6 +18,31 @@ class PayController extends HomeController {
     public function index(){
         $this->display();
     }
+
+
+
+    public function qrcode($url,$level=3,$size=4)
+    {
+        Vendor('phpqrcode.phpqrcode');
+        $errorCorrectionLevel =intval($level) ;//容错级别
+        $matrixPointSize = intval($size);//生成图片大小
+        //生成二维码图片
+        $object = new \QRcode();
+        $object->png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);
+    }
+
+
+    public function qr(){
+
+        $address = $_GET['address'];
+        $level = $_GET['level'];
+        $size = $_GET['size'];
+        $this->qrcode($address,$level,$size);
+    }
+
+
+
+
     //人工充值AJAX处理方式
     public function rechargeByMan(){
     	$config=$this->config;
@@ -87,8 +112,12 @@ class PayController extends HomeController {
     		$address=$this->qianbao_new_address($currency);
     		$this->setCurrentyMemberByMemberId($_SESSION['USER_KEY_ID'], $id, 'chongzhi_url', $address);
     		$list['chongzhi_url']=$address;
+
+
+
     	}
-    
+
+
     	//充值页面
     	$where['user_id']=$_SESSION['USER_KEY_ID'];
     	$where['status']=array('in',array(2,3));
@@ -100,6 +129,11 @@ class PayController extends HomeController {
     	// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
     	$chongzhi = M("Tibi")->where($where)->order("id desc")->limit($Page->firstRow.','.$Page->listRows)->select();
     	$this->assign('chongzhi',$chongzhi);// 赋值数据集
+
+
+
+
+
     	$this->assign('page',$show);// 赋值分页输出
     	$this->assign("list",$list);
     	$this->assign("currency",$currency);//货币信息
@@ -489,7 +523,8 @@ class PayController extends HomeController {
     	$user=$_SESSION['USER_KEY'];
     
     	$address = $bitcoin->getnewaddress($user);
-    
+
+
     	return $address;
     }
     /**
@@ -501,14 +536,54 @@ class PayController extends HomeController {
      *  @param $port_number 端口号 来区分不同的钱包
      */
     private function check_qianbao_address($url,$currency){
-    	
-    	require_once 'App/Common/Common/easybitcoin.php';
- 	    $bitcoin = new \Bitcoin($currency['rpc_user'],$currency['rpc_pwd'],$currency['rpc_url'],$currency['port_number']);
-    	$address = $bitcoin->validateaddress($url);
-    	if($address['isvalid']){
-    		return true;
-    	}else{
-    		return false;
-    	}
+
+        require_once 'App/Common/Common/easybitcoin.php';
+        $bitcoin = new \Bitcoin($currency['rpc_user'],$currency['rpc_pwd'],$currency['rpc_url'],$currency['port_number']);
+        $address = $bitcoin->validateaddress($url);
+        if($address['isvalid']){
+            return true;
+        }else{
+            return false;
+        }
     }
+
+
+
+    public function cc(){
+
+        $url = '1KEuQYzBt6HqS9QpZ8sQkR7tjqtL5uhFZE';
+
+        $cuid = 30;
+
+        $currency=M("Currency")->where("currency_id = '$cuid'")->find();
+
+
+        require_once 'App/Common/Common/easybitcoin.php';
+
+
+
+        $bitcoin = new \Bitcoin($currency['rpc_user'],$currency['rpc_pwd'],$currency['rpc_url'],$currency['port_number']);
+
+
+        $address = $bitcoin->validateaddress($url);
+        dump($address);
+////
+        dump($bitcoin->error);
+        dump($bitcoin->getinfo());
+
+//
+//        if($address['isvalid']){
+//            return true;
+//        }else{
+//            return false;
+//        }
+    }
+
+
+
+
+
+
+
+
 }

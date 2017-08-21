@@ -270,7 +270,7 @@ class UserController extends HomeController {
                     }
                 }
                 foreach ($arr as $vo) {
-                    $url = "http://".$_SERVER['SERVER_NAME'].U('Reg/Reg',array('Member_id'=>session('USER_KEY_ID')));
+                    $url = "http://".$_SERVER['SERVER_NAME'].U('Reg/reg',array('Member_id'=>session('USER_KEY_ID')));
                     $content = "<div>";
                     $content.= "您好，<br><br>请点击链接：<br>";
                     $content.= "<a target='_blank' href='{$url}' >完成注册邀请</a>";

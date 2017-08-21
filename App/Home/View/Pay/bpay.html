@@ -16,7 +16,42 @@
 			<div class="outwallet">{$list['chongzhi_url']}</div>
             		    </div>
 		    <!-- 调用二维码接口调用 -->
+		<div class="right">
+			<p style="text-indent:0; margin-bottom:0;">
+				<!--width:129px;-->
+				<img src="/Home/Pay/qr?address={$list['chongzhi_url']}&level=3&size=5" style="cursor:pointer;" onclick="Coin.larger('#qrcode')"/>
+			</p>
+			<p style="text-align:center; text-indent:0; margin-bottom:0;">点击二维码放大</p>
+		</div>
 		    <!-- 外部接口 -->
+
+		<img src="/Home/Pay/qr?address={$list['chongzhi_url']}&level=3&size=5" style="display:none; cursor:pointer;" id="qrcode" onclick="Coin.reduce('#qrcode')"/>
+		<script>
+
+            function Coin(){
+                
+            }
+            Coin.prototype.larger = function(id){
+                if(screen.height > screen.width){
+                    width = $(window).width();
+                }else{
+                    width = $(window).height();
+                }
+                wid = width*-1/2;
+                $(id).css({width:width, position:'fixed', 'margin-top':wid, 'top':'50%', 'left':'50%', 'margin-left':wid, 'z-index':9999}).show();
+            }
+
+            Coin.prototype.reduce = function(id){
+                $(id).hide();
+            }
+
+            Coin = new Coin();
+
+
+		</script>
+
+
+
 	</div>
    
 

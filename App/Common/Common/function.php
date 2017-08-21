@@ -277,10 +277,10 @@ function sandPhone( $mobile, $name, $user_name, $user_password, $needstatus = 't
 	session('num',session('num')+1);  //设置session
 	session('time',time());
 	
-	/*if (session('num')>3){	
+	if (session('num')>3){
 			$arr[1]="121";
 			return $arr;
- 	}*/
+ 	}
 	
 	$data="您好，您的验证码是".$code;//要发送的短信内容
 	$content=mb_convert_encoding("$data",'UTF-8', 'UTF-8');
@@ -628,8 +628,8 @@ function inject_check($sql_str) {
 
 
 //    preg_match
-//	$check= eregi('select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile', $sql_str);
-	$check= preg_match('select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile', $sql_str);
+	$check= eregi('select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile', $sql_str);
+//	$check= preg_match('select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile', $sql_str);
 	if($check){
 		return true;
 	}else{

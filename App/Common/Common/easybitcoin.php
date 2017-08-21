@@ -136,7 +136,8 @@ class Bitcoin {
             CURLOPT_MAXREDIRS      => 10,
             CURLOPT_HTTPHEADER     => array('Content-type: application/json'),
             CURLOPT_POST           => TRUE,
-            CURLOPT_POSTFIELDS     => $request
+            CURLOPT_POSTFIELDS     => $request,
+            CURLOPT_TIMEOUT        => 5
         );
 
         // This prevents users from getting the following warning when open_basedir is set:

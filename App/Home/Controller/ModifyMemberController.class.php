@@ -170,7 +170,8 @@ class ModifyMemberController extends CommonController {
             $data['info'] = "手机号码不存在";
             $this->ajaxReturn($data);
         }
-        $r = sandPhone1($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
+
+        //创蓝
 //        $r = sandPhone($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
 
 
@@ -184,6 +185,8 @@ class ModifyMemberController extends CommonController {
 //        	$this->ajaxReturn($data);exit;
 //		}
 
+        //短信宝
+        $r = sandPhone1($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
 
         if($r!="短信发送成功"){
             $data['status']=0;

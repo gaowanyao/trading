@@ -17,7 +17,15 @@ class TradeController extends TradeFatherController {
 		header("HTTP/1.0 404 Not Found");
 		$this->display('Public:404');
 	}
-	
+
+
+	public function aa(){
+
+	    dump($this->member);
+
+    }
+
+
     
     //买入
     public function buy(){

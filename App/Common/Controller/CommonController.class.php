@@ -406,7 +406,7 @@ class CommonController extends Controller {
 			$where['currency_id']=array('eq',$currency_id);
 		} 	
      	//获取交易币种信息
-     	$list= M('Currency')->field("currency_id,price_up,price_down,currency_buy_fee,currency_sell_fee,trade_currency_id,is_lock,rpc_url,rpc_pwd,rpc_user,port_number,currency_all_tibi")->where($where)->select();
+     	$list= M('Currency')->field("currency_id,currency_name,price_up,price_down,currency_buy_fee,currency_sell_fee,trade_currency_id,is_lock,rpc_url,rpc_pwd,rpc_user,port_number,currency_all_tibi")->where($where)->select();
     	if (!empty($currency_id)) {
     		return $list[0];  	
      	}else{
@@ -788,26 +788,34 @@ class CommonController extends Controller {
      		$data['info'] = "手机号码不正确";
      		$this->ajaxReturn($data);
      	}
-     	$r = sandPhone($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
-     	$name=chuanglan_status($r['1']);
-     	if($r[1]==0){
-     		$data['stauts']=1;
-     		$data['info']=$name;
-     		$this->ajaxReturn($data);exit;
-     	}else{
-     		$data['status'] =-2;
-     		$data['info']=$name;
-     		$this->ajaxReturn($data);exit;
-     	}
-//      	if($r!="短信发送成功"){
-//      		$data['status']=0;
-//      		$data['info'] = $r;
-//      		$this->ajaxReturn($data);
-//      	}else{
-//      		$data['status']=1;
-//      		$data['info'] = $r;
-//      		$this->ajaxReturn($data);
-//      	}
+     	//创蓝
+//         $r = sandPhone($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
+
+//        $name=chuanglan_status($r['1']);
+//     	if($r[1]==0){
+//     		$data['stauts']=1;
+//     		$data['info']=$name;
+//     		$this->ajaxReturn($data);exit;
+//     	}else{
+//     		$data['status'] =-2;
+//     		$data['info']=$name;
+//     		$this->ajaxReturn($data);exit;
+//     	}
+
+         //短信宝
+         $r = sandPhone1($phone,$this->config['CODE_NAME'],$this->config['CODE_USER_NAME'],$this->config['CODE_USER_PASS']);
+
+      	if($r!="短信发送成功"){
+      		$data['status']=0;
+      		$data['info'] = $r;
+      		$this->ajaxReturn($data);
+      	}else{
+      		$data['status']=1;
+      		$data['info'] = $r;
+      		$this->ajaxReturn($data);
+      	}
+
+
      }
    }
 
