@@ -11,8 +11,12 @@ class IndexController extends CommonController {
 		$this->display('Public:404');
 	}
 
-	
+
 	public function index(){
+
+//	    dump(date("Y-m-d H:i:s",1461406051));
+
+
 		//页面右方公告，提示，资信
 		$art_model = D('Article');
 		$info1 = $art_model->info(1);

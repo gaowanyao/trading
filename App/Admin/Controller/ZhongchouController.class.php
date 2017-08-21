@@ -68,7 +68,7 @@ class ZhongchouController extends AdminController {
 	private function wenjianDownload($file){
 		$upload = new \Think\Upload();// 实例化上传类
 		$upload->maxSize   =     3145728 ;// 设置附件上传大小
-		$upload->exts      =     array('xls', 'xlsx','doc');// 设置附件上传类型
+		$upload->exts      =     array('xls', 'xlsx','doc','docx');// 设置附件上传类型
 		$upload->savePath  =      './Public/Uploads/'; // 设置附件上传目录
 		// 上传文件
 		$info   =  $upload->uploadOne($file);

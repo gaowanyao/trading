@@ -175,6 +175,10 @@
 
 $(function () {
 	$.get('/Home/Market/getMarket',function(data){
+
+
+	    console.log(data);
+
 		 $('#Kline-change').highcharts({
         chart: {
             type: 'areaspline'
