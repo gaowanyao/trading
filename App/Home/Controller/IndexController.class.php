@@ -10,6 +10,8 @@ class IndexController extends CommonController {
 		header("HTTP/1.0 404 Not Found");
 		$this->display('Public:404');
 	}
+
+	
 	public function index(){
 		//页面右方公告，提示，资信
 		$art_model = D('Article');
