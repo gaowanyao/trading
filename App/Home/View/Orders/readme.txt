@@ -22,11 +22,25 @@ date 当前日期
 
 
 在控制台输入  kline
-lastDepth是深度数据
+lastDepth 是深度数据
 
 在控制台输入  GLOBAL_VAR
-KLineData是行情数据
+KLineData 是行情数据
 
+
+获取最新行情字符串在浏览器控制台 JSON.stringify(GLOBAL_VAR.KLineData)
+获取最新深度字符串在浏览器控制台 JSON.stringify(kline.lastDepth)
 
 
 kline.assistent.js中416行中refreshPage函数101跳转
+
+位数
+fromFloat
+
+判断数据类型
+console.log( typeof(a));
+
+
+yang_trade数据库结构 price\num\money\fee四个字段原为DECIMAL类型,已改为double类型
+
+floatval($order_k['price'])    floatval 将字符串类型转为浮点型

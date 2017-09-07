@@ -47,8 +47,7 @@ GLOBAL_VAR.tagMapPeriod = {
 var classId = 0;
 function create_class() {
     var j = arguments.length;
-    var e = function() {}
-    ;
+    var e = function() {};
     var d;
     if (j) {
         d = arguments[0];
@@ -151,6 +150,15 @@ MEvent.prototype._indexOf = function(j, g) {
 }
 ;
 String.fromFloat = function(a, c) {
+
+    // console.log(121121212);
+    // console.log(a);
+    // console.log(c);
+    // console.log( typeof(a));
+    // console.log( typeof(c));
+    // console.log(121121212);
+
+
     var d = a.toFixed(c);
     for (var b = d.length - 1; b >= 0; b--) {
         if (d[b] == ".") {
@@ -7074,6 +7082,9 @@ LastClosePlotter.prototype.__construct = function(a) {
 }
 ;
 LastClosePlotter.prototype.Draw = function(b) {
+
+    // console.log("bbbbbbbbbbbbbbbbbbbbbbbbb");
+
     var k = ChartManager.getInstance();
     var l = k.getTimeline(this.getDataSourceName());
     var f = this.getAreaName();
@@ -7102,6 +7113,11 @@ LastClosePlotter.prototype.Draw = function(b) {
     Plotter.drawLine(b, d, h, d + 7, h);
     Plotter.drawLine(b, d, h, d + 3, h + 2);
     Plotter.drawLine(b, d, h, d + 3, h - 2);
+
+    // console.log("c.getDecimalDigits()");
+    // console.log(c.getDecimalDigits());
+
+
     b.fillText(String.fromFloat(j, c.getDecimalDigits()), d + 10, h)
 }
 ;
@@ -9572,40 +9588,45 @@ var RequestData = function(showLoading) {
             //
             // json = JSON.parse(json);
             console.log(json);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(3435);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(56);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(121);
-            console.log(121);
+            // console.log(121);
+
 
 
             if (GLOBAL_VAR.G_HTTP_REQUEST) {
+
+
+                // console.log(122);
+
                 if (this.time != GLOBAL_VAR.time_type || this.market != GLOBAL_VAR.market_from) {
                     GLOBAL_VAR.TimeOutId = setTimeout(RequestData, 1000);
+
+
+                    // console.log(123);
                     return
                 }
+                // console.log(json);
+
+
                 if (!json) {
+                    // console.log(1241);
+
                     return
                 }
+
+                // console.log(125);
+
                 if (!json.isSuc) {
-                    console.log(json.des);
+
+                    console.log(json.isSuc);
+                    // console.log(json.des);
                     kline.refreshPage(json.datas.ecode == 101 ? null  : GLOBAL_VAR.market_from);
-                    return
+                    return false;
                 }
+                // console.log(126);
+
+                // console.log(json.isSuc);
+                // console.log(json);
+
                 GLOBAL_VAR.market_from_name = json.datas.marketName;
                 var chart = ChartManager.getInstance().getChart();
                 chart._contract_unit = json.datas.contractUnit;

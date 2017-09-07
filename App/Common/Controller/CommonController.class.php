@@ -541,7 +541,8 @@ class CommonController extends Controller {
       * 返回指定数量排序的挂单记录
       * @param char $type buy sell
       * @param int $num 数量
-      * @param char $order 排序 desc asc
+      * @param char $order 排序 desc ascb
+      * @return list
       */
        protected function getOrdersByType($currencyid,$type,$num,$order){
          $where['type']=array('eq',$type);
